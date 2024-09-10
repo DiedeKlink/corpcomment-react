@@ -5,11 +5,17 @@ export default function FeedbackForm() {
   const [text, setText] = useState("");
 
   const charactersLeft = MAX_CHARACTERS - text.length;
+
+  const changeHandler = (e) => {
+    setText((prev) =>
+      e.target.value.length <= MAX_CHARACTERS ? e.target.value : prev
+    );
+  };
   return (
     <form className="form">
       <textarea
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={changeHandler}
         id="feedback-textarea"
         placeholder="blabla"
         spellCheck={false}
