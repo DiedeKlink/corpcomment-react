@@ -6,16 +6,16 @@ export default function FeedbackForm() {
 
   const charactersLeft = MAX_CHARACTERS - text.length;
 
-  const changeHandler = (e) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText((prev) =>
-      e.target.value.length <= MAX_CHARACTERS ? e.target.value : prev
+      event.target.value.length <= MAX_CHARACTERS ? event.target.value : prev
     );
   };
   return (
     <form className="form">
       <textarea
         value={text}
-        onChange={changeHandler}
+        onChange={handleChange}
         id="feedback-textarea"
         placeholder="blabla"
         spellCheck={false}
