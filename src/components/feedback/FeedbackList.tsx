@@ -1,11 +1,16 @@
 import FeedbackItem from "./FeedbackItem";
 import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
-import { useFeedBackItemsContext } from "../../lib/hooks";
+import { useFeedbackItemsStore } from "../../stores/feedbackItemsStore";
 
 export default function FeedbackList() {
-  const { filteredFeedbackItems, errorMessage, isLoading } =
-    useFeedBackItemsContext();
+  // const { filteredFeedbackItems, errorMessage, isLoading } =
+  //   useFeedBackItemsContext();
+  const isLoading = useFeedbackItemsStore((state) => state.isLoading);
+  const errorMessage = useFeedbackItemsStore((state) => state.errorMessage);
+  const filteredFeedbackItems = useFeedbackItemsStore((state) =>
+    state.getFilteredFeedbackItems()
+  );
 
   return (
     <ol className="feedback-list">
