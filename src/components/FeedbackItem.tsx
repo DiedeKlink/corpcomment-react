@@ -1,6 +1,7 @@
 import { TriangleUpIcon } from "@radix-ui/react-icons";
 
 type FeedbackItem = {
+  id: number;
   upvoteCount: number;
   badgeLetter: string;
   companyName: string;
