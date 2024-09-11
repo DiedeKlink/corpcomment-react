@@ -7,27 +7,46 @@ export default function FeedbackList() {
   const [feedbackItems, setFeedbackItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const fetchFeedbckItems = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong.");
+      }
+      const data = await response.json();
+      setIsLoading(false);
+      setFeedbackItems(data.feedbacks);
+    } catch (error) {
+      setErrorMessage("Something went wrong.");
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Something went wrong.");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setIsLoading(false);
+    fetchFeedbckItems();
 
-        setFeedbackItems(data.feedbacks);
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-        setIsLoading(false);
-      });
+    // setIsLoading(true);
+    // fetch(
+    //   "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
+    // )
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("Something went wrong.");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     setIsLoading(false);
+
+    //     setFeedbackItems(data.feedbacks);
+    //   })
+    //   .catch((error) => {
+    //     setErrorMessage(error.message);
+    //     setIsLoading(false);
+    //   });
   }, []);
 
   return (
